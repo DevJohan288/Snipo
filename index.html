@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="light dark" />
+  <title>Snipo: tips de desarrollo web</title>
+  <link rel="icon" href="assets/icon.svg" type="image/svg+xml" />
+  <meta name="description" content="Tips rápidos de desarrollo web frontend y backend." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <a href="#main" class="skip">Saltar al contenido</a>
+  <header class="top">
+    <button id="menu" class="btn menu" aria-controls="sidebar" aria-expanded="false">Menú</button>
+    <a href="#/" class="brand"><img src="assets/icon.svg" alt="" width="28" height="28" />Snipo</a>
+    <label class="visually-hidden" for="q">Buscar un tip</label>
+    <input id="q" class="search" type="search" placeholder="Buscar un tip  ( / )" autocomplete="off" />
+    <button id="theme" class="btn" aria-pressed="false">Tema oscuro</button>
+  </header>
+  <div id="progress" class="progress" aria-hidden="true"></div>
+  <div class="layout">
+    <nav id="sidebar" class="sidebar" aria-label="Tips"></nav>
+    <main id="main" tabindex="-1"></main>
+    <aside id="toc" class="toc" aria-label="En esta página"></aside>
+  </div>
+  <script type="module" src="dist/main.js"></script>
+</body>
+</html>

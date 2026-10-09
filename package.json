@@ -1,0 +1,11 @@
+{
+  "name": "snipo",
+  "private": true,
+  "scripts": {
+    "content": "node scripts/build-content.mjs",
+    "build": "npm run content && tsc",
+    "watch": "tsc --watch",
+    "start": "npx serve ."
+  },
+  "devDependencies": { "typescript": "^5.6.0" }
+}
