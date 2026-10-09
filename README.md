@@ -1,4 +1,4 @@
-<p align="center"><img src="assets/logo.svg" alt="Snipo" height="64" /></p>
+<!-- <p align="center"><img src="assets/logo.svg" alt="Snipo" height="64" /></p>
 
 # Snipo
 
@@ -46,4 +46,4 @@ para insertar un componente interactivo (`flex-playground`, `api-tester`).
 Antes de publicar, cambia los datos de ejemplo en `src/site.ts` y `src/projects.ts`.
 
 ## Marca
-`assets/icon.svg` (icono y favicon), `assets/logo.svg` (para fondos claros) y `assets/logo-dark.svg` (para fondos oscuros).
+`assets/icon.svg` (icono y favicon), `assets/logo.svg` (para fondos claros) y `assets/logo-dark.svg` (para fondos oscuros). -->

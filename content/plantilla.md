@@ -1,4 +1,4 @@
----
+<!-- ---
 title: Título del tip en imperativo
 date: 2026-10-08
 track: frontend
@@ -21,4 +21,4 @@ Explicación corta. Admite `código`, **negrita**, *cursiva* y [enlaces](https:/
 - Elemento de lista
 - Otro elemento
 
-::component flex-playground
+::component flex-playground -->
