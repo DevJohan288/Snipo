@@ -2,7 +2,7 @@
 title: Alinea elementos y tracks con CSS Grid
 date: 2026-11-04
 track: frontend
-topic: Layout
+topic: CSS y diseño
 navTitle: Alineación en Grid
 tags: CSS, Layout
 excerpt: Distingue cuándo alinear los elementos, cada celda o la cuadrícula completa.

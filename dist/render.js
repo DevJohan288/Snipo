@@ -1,6 +1,6 @@
 import { hydrateDemos } from "./demos.js";
 import { highlightAll } from "./highlight.js";
-import { aboutView, filterPosts, landingView, notFoundView, postView, presentationView, projectListView, projectsView, tagView, tipsView, tocView, } from "./views.js";
+import { aboutView, categoryView, filterPosts, landingView, notFoundView, postView, presentationView, projectListView, projectsView, tagView, tipsView, tocView, } from "./views.js";
 function addCopyButtons(root) {
     root.querySelectorAll("pre").forEach((pre) => {
         const button = document.createElement("button");
@@ -30,9 +30,11 @@ export function renderRoute(route, main, toc, data) {
             show("Snipo", landingView(data.posts, data.projects), route, main, toc);
             return addCopyButtons(main);
         case "tips":
-            show(route.track ? `Tips de ${route.track}` : "Tips", `<div id="home-list"></div>`, route, main, toc);
+            show(route.track ? `Temas de ${route.track}` : "Explorar temas", `<div id="home-list"></div>`, route, main, toc);
             renderTipsResults(main.querySelector("#home-list"), data.posts, data.query, route.track);
             return;
+        case "category":
+            return show(route.topic, categoryView(data.posts, route.topic), route, main, toc);
         case "tag":
             show(`Etiqueta: ${route.tag}`, tagView(data.posts, route.tag), route, main, toc);
             return addCopyButtons(main);

@@ -2,7 +2,7 @@
 title: Audita una página con Lighthouse en Chrome
 date: 2026-11-04
 track: frontend
-topic: Herramientas
+topic: Aprendizaje y herramientas
 navTitle: Auditoría Lighthouse
 tags: Chrome, Rendimiento, Accesibilidad
 excerpt: Genera un informe de rendimiento, accesibilidad, buenas prácticas y SEO desde DevTools.

@@ -2,7 +2,7 @@
 title: Elige entre box-shadow y drop-shadow en CSS
 date: 2026-11-04
 track: frontend
-topic: CSS
+topic: CSS y diseño
 navTitle: Sombras CSS
 tags: CSS, Diseño
 excerpt: Usa box-shadow para la caja y drop-shadow para seguir la silueta transparente.

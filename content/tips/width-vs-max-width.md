@@ -2,7 +2,7 @@
 title: Usa max-width para un ancho adaptable
 date: 2026-11-04
 track: frontend
-topic: CSS
+topic: CSS y diseño
 navTitle: width y max-width
 tags: CSS, Diseño
 excerpt: Combina un ancho flexible con un límite para evitar desbordes en pantallas pequeñas.

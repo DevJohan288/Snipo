@@ -34,7 +34,7 @@ export const posts = [
         "title": "Audita una página con Lighthouse en Chrome",
         "date": "2026-11-04",
         "track": "frontend",
-        "topic": "Herramientas",
+        "topic": "Aprendizaje y herramientas",
         "navTitle": "Auditoría Lighthouse",
         "tags": [
             "Chrome",
@@ -49,7 +49,7 @@ export const posts = [
         "title": "Elige entre box-shadow y drop-shadow en CSS",
         "date": "2026-11-04",
         "track": "frontend",
-        "topic": "CSS",
+        "topic": "CSS y diseño",
         "navTitle": "Sombras CSS",
         "tags": [
             "CSS",
@@ -91,7 +91,7 @@ export const posts = [
         "title": "Alinea elementos y tracks con CSS Grid",
         "date": "2026-11-04",
         "track": "frontend",
-        "topic": "Layout",
+        "topic": "CSS y diseño",
         "navTitle": "Alineación en Grid",
         "tags": [
             "CSS",
@@ -133,7 +133,7 @@ export const posts = [
         "title": "Ajusta imágenes con object-fit",
         "date": "2026-11-04",
         "track": "frontend",
-        "topic": "CSS",
+        "topic": "CSS y diseño",
         "navTitle": "object-fit",
         "tags": [
             "CSS",
@@ -147,7 +147,7 @@ export const posts = [
         "title": "Identifica las partes de una URL",
         "date": "2026-11-04",
         "track": "backend",
-        "topic": "APIs",
+        "topic": "APIs y HTTP",
         "navTitle": "Partes de una URL",
         "tags": [
             "URL",
@@ -162,7 +162,7 @@ export const posts = [
         "title": "Distingue los patrones MVC, MVP y MVVM",
         "date": "2026-11-04",
         "track": "frontend",
-        "topic": "Arquitectura",
+        "topic": "Arquitectura y calidad",
         "navTitle": "MVC, MVP y MVVM",
         "tags": [
             "Arquitectura",
@@ -177,7 +177,7 @@ export const posts = [
         "title": "Normaliza estilos y aprovecha abreviaturas CSS",
         "date": "2026-11-04",
         "track": "frontend",
-        "topic": "CSS",
+        "topic": "CSS y diseño",
         "navTitle": "Reset y abreviaturas",
         "tags": [
             "CSS",
@@ -191,7 +191,7 @@ export const posts = [
         "title": "Traza una ruta para aprender desarrollo web",
         "date": "2026-11-04",
         "track": "frontend",
-        "topic": "JavaScript",
+        "topic": "Aprendizaje y herramientas",
         "navTitle": "Ruta web",
         "tags": [
             "Aprendizaje",
@@ -206,7 +206,7 @@ export const posts = [
         "title": "Diseña código mantenible con POO, SOLID y patrones",
         "date": "2026-11-04",
         "track": "frontend",
-        "topic": "Arquitectura",
+        "topic": "Arquitectura y calidad",
         "navTitle": "POO y diseño",
         "tags": [
             "Arquitectura",
@@ -222,7 +222,7 @@ export const posts = [
         "title": "Usa max-width para un ancho adaptable",
         "date": "2026-11-04",
         "track": "frontend",
-        "topic": "CSS",
+        "topic": "CSS y diseño",
         "navTitle": "width y max-width",
         "tags": [
             "CSS",
@@ -250,7 +250,7 @@ export const posts = [
         "title": "Flexbox para una dimensión, Grid para dos",
         "date": "2026-10-06",
         "track": "frontend",
-        "topic": "Layout",
+        "topic": "CSS y diseño",
         "navTitle": "Grid y columnas",
         "tags": [
             "CSS",
@@ -278,7 +278,7 @@ export const posts = [
         "title": "Tipografía fluida con clamp() y sin media queries",
         "date": "2026-10-03",
         "track": "frontend",
-        "topic": "CSS",
+        "topic": "CSS y diseño",
         "navTitle": "Tipografía fluida",
         "tags": [
             "CSS",
@@ -292,7 +292,7 @@ export const posts = [
         "title": "Foco visible solo para teclado con :focus-visible",
         "date": "2026-09-29",
         "track": "frontend",
-        "topic": "CSS",
+        "topic": "CSS y diseño",
         "navTitle": "Foco de teclado",
         "tags": [
             "CSS",
@@ -388,7 +388,7 @@ export const posts = [
         "title": "Usa el código HTTP correcto",
         "date": "2026-09-10",
         "track": "backend",
-        "topic": "APIs",
+        "topic": "APIs y HTTP",
         "navTitle": "Códigos HTTP",
         "tags": [
             "REST",

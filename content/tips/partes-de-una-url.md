@@ -2,7 +2,7 @@
 title: Identifica las partes de una URL
 date: 2026-11-04
 track: backend
-topic: APIs
+topic: APIs y HTTP
 navTitle: Partes de una URL
 tags: URL, HTTP, Web
 excerpt: Distingue protocolo, host, puerto, ruta, parámetros y fragmento.

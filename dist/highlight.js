@@ -16,6 +16,14 @@ const CSS = [
     ["prop", /[a-z-]+(?=\s*:\s)/y],
     ["fn", /[a-z-]+(?=\()/y],
 ];
+const HTML = [
+    ["comment", /<!--[\s\S]*?-->/y],
+    ["keyword", /<!doctype\b[^>]*>/iy],
+    ["keyword", /<\/?[A-Za-z][\w:-]*/y],
+    ["prop", /[A-Za-z_:][\w:.-]*(?=\s*=)/y],
+    ["string", /"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*'/y],
+    ["type", /\/?>/y],
+];
 const SQL = [
     ["comment", /--[^\n]*/y],
     ["string", /'(?:''|[^'])*'/y],
@@ -37,7 +45,7 @@ const SHELL = [
 const TEXT = [["number", /(?<![\w])\d{3}(?![\w])/y]];
 const LANGS = {
     js: JS, javascript: JS, ts: JS, typescript: JS,
-    css: CSS, sql: SQL, json: JSON_RULES,
+    css: CSS, html: HTML, xml: HTML, sql: SQL, json: JSON_RULES,
     bash: SHELL, sh: SHELL, env: SHELL, text: TEXT,
 };
 /** Devuelve el código escapado y con <span class="tok-..."> en cada elemento reconocido. */

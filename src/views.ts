@@ -6,11 +6,23 @@ import { TRACK_LABEL, levelBadge, pill, projectCard } from "./components.js";
 import { esc, longDate, readingTime } from "./utils.js";
 
 const TRACKS: Track[] = ["frontend", "backend"];
-const SECTIONS: [string, string][] = [["#/inicio", "Inicio"], ["#/tips", "Tips"], ["#/projects", "Proyectos"], ["#/about", "Sobre mí"]];
+const SECTIONS: [string, string][] = [["#/inicio", "Inicio"], ["#/tips", "Temas"], ["#/projects", "Proyectos"], ["#/about", "Sobre mí"]];
 const TOPIC_ORDER: Record<Track, readonly string[]> = {
-  frontend: ["HTML", "Layout", "CSS", "JavaScript", "TypeScript"],
-  backend: ["SQL", "Seguridad", "APIs", "Node.js"],
+  frontend: ["HTML", "CSS y diseño", "JavaScript", "TypeScript", "Arquitectura y calidad", "Aprendizaje y herramientas"],
+  backend: ["APIs y HTTP", "SQL", "Seguridad"],
 };
+const TOPIC_DESCRIPTIONS: Record<string, string> = {
+  HTML: "Estructura, semántica, atributos y formularios.",
+  "CSS y diseño": "Layout, estilos, imágenes, tipografía y accesibilidad visual.",
+  JavaScript: "Fundamentos del lenguaje, arreglos, navegador y buenas prácticas.",
+  TypeScript: "Tipos y herramientas para escribir JavaScript con más garantías.",
+  "Arquitectura y calidad": "Patrones, diseño orientado a objetos, pruebas y mantenibilidad.",
+  "Aprendizaje y herramientas": "Recursos y herramientas para aprender y revisar sitios web.",
+  "APIs y HTTP": "URLs, comunicación web y códigos de respuesta.",
+  SQL: "Consultas, rendimiento y manejo seguro de datos.",
+  Seguridad: "Protección de credenciales, sesiones y datos sensibles.",
+};
+const topicHref = (topic: string): string => `#/tema/${encodeURIComponent(topic)}`;
 
 export const filterPosts = (posts: readonly Post[], query: string): Post[] => {
   const q = query.trim().toLowerCase();
@@ -29,6 +41,13 @@ export const sidebarView = (posts: readonly Post[], query: string, route: Route)
     ? route.track
     : route.name === "post"
       ? posts.find((p) => p.slug === current)?.track
+      : route.name === "category"
+        ? posts.find((p) => p.topic === route.topic)?.track
+      : undefined;
+  const currentTopic = route.name === "category"
+    ? route.topic
+    : route.name === "post"
+      ? posts.find((p) => p.slug === current)?.topic
       : undefined;
   const group = (track: Track): string => {
     const trackPosts = items.filter((post) => post.track === track);
@@ -47,17 +66,22 @@ export const sidebarView = (posts: readonly Post[], query: string, route: Route)
       if (bIndex < 0) return -1;
       return aIndex - bIndex;
     });
-    const categories = topics.map((topic) =>
-      `<section class="side-category"><h3>${esc(topic)}</h3><ul>${groups.get(topic)!.map((post) =>
-        `<li><a href="#/tip/${post.slug}"${post.slug === current ? ' aria-current="page"' : ""}>${esc(post.navTitle)}</a></li>`)
-        .join("")}</ul></section>`).join("");
+    const categories = topics.map((topic) => {
+      const topicPosts = groups.get(topic)!;
+      return `<details class="side-category"${currentTopic === topic ? " open" : ""}>
+        <summary>${esc(topic)}<span class="side-count">${topicPosts.length}</span></summary>
+        <ul>${topicPosts.map((post) =>
+          `<li><a href="#/tip/${post.slug}"${post.slug === current ? ' aria-current="page"' : ""}>${esc(post.navTitle)}</a></li>`)
+          .join("")}</ul>
+      </details>`;
+    }).join("");
     return `<details class="side-group"${query || currentTrack === track ? " open" : ""}>
       <summary>${TRACK_LABEL[track]}<span class="side-count">${trackPosts.length}</span></summary>
       <div class="side-categories">${categories}</div>
     </details>`;
   };
   const topics = items.length
-    ? `<h2 class="side-title side-topics-title">Explorar por tema</h2>${TRACKS.map(group).join("")}`
+    ? `<h2 class="side-title side-topics-title">Categorías</h2>${TRACKS.map(group).join("")}`
     : `<p class="side-empty">Sin resultados para "${esc(query)}".</p>`;
   return nav + topics;
 };
@@ -74,22 +98,38 @@ const entries = (list: readonly Post[], withCode = false): string => `<ul class=
 export const tipsView = (posts: readonly Post[], track?: Track): string => {
   const tabs: [string, string, Track | undefined][] = [["#/tips", "Todos", undefined], ["#/tips/frontend", "Frontend", "frontend"], ["#/tips/backend", "Backend", "backend"]];
   const head = `
-  <h1>${track ? `Tips de ${TRACK_LABEL[track]}` : "Tips"}</h1>
-  <p class="lead">Consejos cortos con el código listo para copiar.</p>
+  <h1>${track ? `Explora temas de ${TRACK_LABEL[track]}` : "Explora por tema"}</h1>
+  <p class="lead">Encuentra tips agrupados por lo que quieres aprender o resolver.</p>
   <p class="skills" aria-label="Filtrar por pista">${tabs.map(([href, label, t]) => pill(label, href, t === track)).join("")}</p>`;
   const shown = track ? posts.filter((p) => p.track === track) : [...posts];
   if (!shown.length) return head + `<p class="empty">Sin resultados. Prueba otra palabra.</p>`;
-  if (track) return head + `<section class="topic">${entries(shown, true)}</section>`;
-  return head + TRACKS.map((t) => {
-    const list = shown.filter((p) => p.track === t);
-    return list.length ? `<section class="topic"><h2>${TRACK_LABEL[t]}</h2>${entries(list, true)}</section>` : "";
-  }).join("");
+  const topics = [...new Set(shown.map((post) => post.topic))].sort((a, b) => {
+    const order = track ? TOPIC_ORDER[track] : [...TOPIC_ORDER.frontend, ...TOPIC_ORDER.backend];
+    return order.indexOf(a) - order.indexOf(b);
+  });
+  return head + `<section class="topic-directory" aria-label="Categorías de tips">${topics.map((topic) => {
+    const count = shown.filter((post) => post.topic === topic).length;
+    return `<a class="topic-card" href="${topicHref(topic)}">
+      <span class="topic-card-heading">${esc(topic)}<span class="side-count">${count}</span></span>
+      <p>${esc(TOPIC_DESCRIPTIONS[topic] ?? "Tips relacionados con este tema.")}</p>
+      <span class="topic-card-link">Explorar tema</span>
+    </a>`;
+  }).join("")}</section>`;
+};
+
+export const categoryView = (posts: readonly Post[], topic: string): string => {
+  const list = posts.filter((post) => post.topic === topic);
+  return `
+  <nav class="crumbs" aria-label="Ruta"><a href="#/inicio">Inicio</a><a href="#/tips">Temas</a></nav>
+  <h1>${esc(topic)}</h1>
+  <p class="lead">${TOPIC_DESCRIPTIONS[topic] ?? "Tips relacionados con este tema."}</p>
+  ${list.length ? entries(list) : `<p class="empty">No hay tips en esta categoría. <a href="#/tips">Explorar todos los temas</a></p>`}`;
 };
 
 export const tagView = (posts: readonly Post[], tag: string): string => {
   const list = posts.filter((p) => p.tags.includes(tag));
   return `
-  <nav class="crumbs" aria-label="Ruta"><a href="#/inicio">Inicio</a><a href="#/tips">Tips</a></nav>
+  <nav class="crumbs" aria-label="Ruta"><a href="#/inicio">Inicio</a><a href="#/tips">Temas</a></nav>
   <h1>${esc(tag)}</h1>
   <p class="lead">${list.length} ${list.length === 1 ? "tip" : "tips"} con esta etiqueta.</p>
   ${list.length ? entries(list, true) : `<p class="empty">No hay tips con esta etiqueta. <a href="#/tips">Ver todos los tips</a></p>`}`;
@@ -153,7 +193,7 @@ export const landingView = (posts: readonly Post[], list: readonly Project[]): s
       <h1>Tips rápidos de desarrollo web</h1>
       <p class="lead">Consejos cortos de frontend y backend con el código listo para copiar. Sin tutoriales largos.</p>
       <p class="cta">
-        <a class="btn primary" href="#/tips">Ver los tips</a>
+        <a class="btn primary" href="#/tips">Explorar temas</a>
         <button class="btn" type="button" data-random>Un tip al azar</button>
       </p>
     </section>
@@ -168,11 +208,12 @@ export const landingView = (posts: readonly Post[], list: readonly Project[]): s
       <div class="tracks">
         ${TRACKS.map((t) => {
           const l = posts.filter((p) => p.track === t);
+          const topicCount = new Set(l.map((post) => post.topic)).size;
           return `<article class="track ${t}">
             <h3>${TRACK_LABEL[t]}</h3>
             <p>${TRACK_INTRO[t]}</p>
             <ul>${l.slice(0, 3).map((p) => `<li><a href="#/tip/${p.slug}">${esc(p.title)}</a></li>`).join("")}</ul>
-            <a class="more" href="#/tips/${t}">Ver los ${l.length} tips de ${TRACK_LABEL[t]}</a>
+            <a class="more" href="#/tips/${t}">Explorar ${topicCount} temas de ${TRACK_LABEL[t]}</a>
           </article>`;
         }).join("")}
       </div>

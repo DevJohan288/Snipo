@@ -4,7 +4,7 @@ import type { Post } from "./posts.js";
 import type { Project } from "./projects.js";
 import type { Route } from "./router.js";
 import {
-  aboutView, filterPosts, landingView, notFoundView, postView, presentationView,
+  aboutView, categoryView, filterPosts, landingView, notFoundView, postView, presentationView,
   projectListView, projectsView, tagView, tipsView, tocView,
 } from "./views.js";
 
@@ -47,10 +47,12 @@ export function renderRoute(route: Route, main: HTMLElement, toc: HTMLElement, d
       show("Snipo", landingView(data.posts, data.projects), route, main, toc);
       return addCopyButtons(main);
     case "tips":
-      show(route.track ? `Tips de ${route.track}` : "Tips",
+      show(route.track ? `Temas de ${route.track}` : "Explorar temas",
         `<div id="home-list"></div>`, route, main, toc);
       renderTipsResults(main.querySelector<HTMLElement>("#home-list")!, data.posts, data.query, route.track);
       return;
+    case "category":
+      return show(route.topic, categoryView(data.posts, route.topic), route, main, toc);
     case "tag":
       show(`Etiqueta: ${route.tag}`, tagView(data.posts, route.tag), route, main, toc);
       return addCopyButtons(main);

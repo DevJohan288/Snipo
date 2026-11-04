@@ -2,7 +2,7 @@
 title: Distingue los patrones MVC, MVP y MVVM
 date: 2026-11-04
 track: frontend
-topic: Arquitectura
+topic: Arquitectura y calidad
 navTitle: MVC, MVP y MVVM
 tags: Arquitectura, Patrones, Frontend
 excerpt: Compara cómo MVC, MVP y MVVM separan los datos, la interfaz y la lógica de presentación.

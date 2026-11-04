@@ -21,6 +21,15 @@ const CSS: Rule[] = [
   ["fn", /[a-z-]+(?=\()/y],
 ];
 
+const HTML: Rule[] = [
+  ["comment", /<!--[\s\S]*?-->/y],
+  ["keyword", /<!doctype\b[^>]*>/iy],
+  ["keyword", /<\/?[A-Za-z][\w:-]*/y],
+  ["prop", /[A-Za-z_:][\w:.-]*(?=\s*=)/y],
+  ["string", /"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*'/y],
+  ["type", /\/?>/y],
+];
+
 const SQL: Rule[] = [
   ["comment", /--[^\n]*/y],
   ["string", /'(?:''|[^'])*'/y],
@@ -46,7 +55,7 @@ const TEXT: Rule[] = [["number", /(?<![\w])\d{3}(?![\w])/y]];
 
 const LANGS: Record<string, Rule[]> = {
   js: JS, javascript: JS, ts: JS, typescript: JS,
-  css: CSS, sql: SQL, json: JSON_RULES,
+  css: CSS, html: HTML, xml: HTML, sql: SQL, json: JSON_RULES,
   bash: SHELL, sh: SHELL, env: SHELL, text: TEXT,
 };
 

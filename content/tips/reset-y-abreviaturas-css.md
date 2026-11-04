@@ -2,7 +2,7 @@
 title: Normaliza estilos y aprovecha abreviaturas CSS
 date: 2026-11-04
 track: frontend
-topic: CSS
+topic: CSS y diseño
 navTitle: Reset y abreviaturas
 tags: CSS, Diseño
 excerpt: Empieza con un modelo de caja predecible y escribe abreviaturas CSS con claridad.

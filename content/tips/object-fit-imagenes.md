@@ -2,7 +2,7 @@
 title: Ajusta imágenes con object-fit
 date: 2026-11-04
 track: frontend
-topic: CSS
+topic: CSS y diseño
 navTitle: object-fit
 tags: CSS, Imágenes
 excerpt: Encaja una imagen en un marco fijo sin perder control del recorte o la proporción.

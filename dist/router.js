@@ -12,6 +12,7 @@ export function parseRoute(hash) {
         case "": return { name: "home" };
         case "inicio": return { name: "main" };
         case "tips": return b === "frontend" || b === "backend" ? { name: "tips", track: b } : { name: "tips" };
+        case "tema": return b ? { name: "category", topic: safeDecode(b) } : { name: "tips" };
         case "tags":
         case "archive": return { name: "tips" };
         case "tip": return b ? { name: "post", slug: b } : { name: "missing" };
@@ -28,6 +29,7 @@ export const sectionOf = (r) => {
         case "home": return "#/";
         case "main": return "#/inicio";
         case "tips":
+        case "category":
         case "post":
         case "tag": return "#/tips";
         case "projects": return "#/projects";

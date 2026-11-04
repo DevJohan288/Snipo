@@ -2,7 +2,7 @@
 title: Foco visible solo para teclado con :focus-visible
 date: 2026-09-29
 track: frontend
-topic: CSS
+topic: CSS y diseño
 navTitle: Foco de teclado
 tags: CSS, Accesibilidad
 excerpt: Mantén el contorno de foco sin molestar a quien usa el ratón.

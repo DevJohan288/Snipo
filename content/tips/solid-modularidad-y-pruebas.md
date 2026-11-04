@@ -2,7 +2,7 @@
 title: Diseña código mantenible con POO, SOLID y patrones
 date: 2026-11-04
 track: frontend
-topic: Arquitectura
+topic: Arquitectura y calidad
 navTitle: POO y diseño
 tags: Arquitectura, POO, SOLID, Pruebas
 excerpt: Aplica POO, SOLID y patrones de diseño para organizar código claro, modular y fácil de probar.

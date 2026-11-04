@@ -4,6 +4,7 @@ export type Route =
   | { name: "home" }
   | { name: "main" }
   | { name: "tips"; track?: Track }
+  | { name: "category"; topic: string }
   | { name: "post"; slug: string }
   | { name: "tag"; tag: string }
   | { name: "projects" }
@@ -20,6 +21,7 @@ export function parseRoute(hash: string): Route {
     case "": return { name: "home" };
     case "inicio": return { name: "main" };
     case "tips": return b === "frontend" || b === "backend" ? { name: "tips", track: b } : { name: "tips" };
+    case "tema": return b ? { name: "category", topic: safeDecode(b) } : { name: "tips" };
     case "tags": case "archive": return { name: "tips" };
     case "tip": return b ? { name: "post", slug: b } : { name: "missing" };
     case "tag": return b ? { name: "tag", tag: safeDecode(b) } : { name: "tips" };
@@ -34,7 +36,7 @@ export const sectionOf = (r: Route): string => {
   switch (r.name) {
     case "home": return "#/";
     case "main": return "#/inicio";
-    case "tips": case "post": case "tag": return "#/tips";
+    case "tips": case "category": case "post": case "tag": return "#/tips";
     case "projects": return "#/projects";
     case "about": return "#/about";
     default: return "";

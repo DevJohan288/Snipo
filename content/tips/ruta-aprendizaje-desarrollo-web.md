@@ -2,7 +2,7 @@
 title: Traza una ruta para aprender desarrollo web
 date: 2026-11-04
 track: frontend
-topic: JavaScript
+topic: Aprendizaje y herramientas
 navTitle: Ruta web
 tags: Aprendizaje, Frontend, Backend
 excerpt: Ordena los fundamentos, la práctica y los siguientes pasos para aprender desarrollo web.

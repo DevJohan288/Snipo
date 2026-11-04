@@ -2,7 +2,7 @@
 title: Flexbox para una dimensión, Grid para dos
 date: 2026-10-06
 track: frontend
-topic: Layout
+topic: CSS y diseño
 navTitle: Grid y columnas
 tags: CSS, Layout
 excerpt: Una regla de una línea para decidir cuál usar.

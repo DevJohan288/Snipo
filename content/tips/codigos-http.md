@@ -2,7 +2,7 @@
 title: Usa el código HTTP correcto
 date: 2026-09-10
 track: backend
-topic: APIs
+topic: APIs y HTTP
 navTitle: Códigos HTTP
 tags: REST, HTTP
 excerpt: Reconoce estados HTTP habituales para respuestas exitosas, redirecciones y errores.
