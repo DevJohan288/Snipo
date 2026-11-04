@@ -2,6 +2,8 @@
 title: Guarda el JWT en una cookie HttpOnly
 date: 2026-09-27
 track: backend
+topic: Seguridad
+navTitle: JWT en cookie
 tags: Seguridad, Node.js
 excerpt: En localStorage, cualquier script inyectado puede leerlo.
 ---

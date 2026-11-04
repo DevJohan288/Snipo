@@ -2,6 +2,8 @@
 title: Contraseñas con bcrypt o argon2, nunca en texto plano
 date: 2026-09-22
 track: backend
+topic: Seguridad
+navTitle: Hash de contraseñas
 tags: Seguridad, Node.js
 excerpt: Un hash lento protege las cuentas aunque se filtre la base de datos.
 ---

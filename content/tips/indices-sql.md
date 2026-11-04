@@ -2,6 +2,8 @@
 title: Indexa las columnas de WHERE y JOIN
 date: 2026-10-04
 track: backend
+topic: SQL
+navTitle: Índices SQL
 tags: SQL, Rendimiento
 excerpt: Sin índice, la base de datos recorre la tabla completa.
 ---

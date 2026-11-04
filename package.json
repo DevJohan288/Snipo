@@ -5,6 +5,7 @@
     "content": "node scripts/build-content.mjs",
     "build": "npm run content && tsc",
     "watch": "tsc --watch",
+    "dev": "npm run start",
     "start": "npx serve ."
   },
   "devDependencies": { "typescript": "^5.6.0" }

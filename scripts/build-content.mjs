@@ -78,7 +78,7 @@ function parse(file) {
     const k = l.match(/^(\w+):\s*(.*)$/);
     if (k) meta[k[1]] = k[2].trim();
   }
-  for (const key of ["title", "date", "track", "tags", "excerpt"])
+  for (const key of ["title", "date", "track", "topic", "navTitle", "tags", "excerpt"])
     if (!meta[key]) throw new Error(`${name}: falta "${key}" en la cabecera`);
   if (!/^\d{4}-\d{2}-\d{2}$/.test(meta.date)) throw new Error(`${name}: la fecha debe ser AAAA-MM-DD`);
   if (!["frontend", "backend"].includes(meta.track)) throw new Error(`${name}: track debe ser frontend o backend`);
@@ -87,6 +87,8 @@ function parse(file) {
     title: meta.title,
     date: meta.date,
     track: meta.track,
+    topic: meta.topic,
+    navTitle: meta.navTitle,
     tags: meta.tags.split(",").map((t) => t.trim()).filter(Boolean),
     excerpt: meta.excerpt,
     body: markdown(m[2].trim()),

@@ -2,6 +2,8 @@
 title: Nunca concatenes SQL: usa consultas parametrizadas
 date: 2026-10-07
 track: backend
+topic: SQL
+navTitle: SQL parametrizado
 tags: SQL, Seguridad
 excerpt: Es la forma más simple de evitar la inyección SQL.
 ---

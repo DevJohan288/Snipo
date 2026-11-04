@@ -1,4 +1,4 @@
-<!-- <p align="center"><img src="assets/logo.svg" alt="Snipo" height="64" /></p>
+<p align="center"><img src="assets/logo.svg" alt="Snipo" height="64" /></p>
 
 # Snipo
 
@@ -7,12 +7,13 @@ Blog de tips de desarrollo web con TypeScript (solo `tsc`), HTML y CSS propio. S
 ## Uso
     npm install
     npm run build     # genera los tips desde Markdown y compila TypeScript
+    npm run dev       # inicia el servidor local de desarrollo
     npm run start     # servidor local (los módulos ES no funcionan con file://)
     npm run content   # solo regenera src/posts-data.ts desde content/tips/*.md
 
 ## Añadir un tip
 1. Copia `content/plantilla.md` a `content/tips/mi-tip.md` (el nombre del archivo es la URL).
-2. Rellena la cabecera (title, date, track, tags, excerpt) y escribe el contenido.
+2. Rellena la cabecera (`title`, `date`, `track`, `topic`, `navTitle`, `tags`, `excerpt`) y escribe el contenido.
 3. Ejecuta `npm run build`.
 
 Markdown admitido: párrafos, `## títulos`, listas con `-`, `> avisos`, bloques de código con lenguaje
@@ -23,8 +24,11 @@ para insertar un componente interactivo (`flex-playground`, `api-tester`).
 - `content/tips/`: tus tips en Markdown
 - `scripts/build-content.mjs`: convierte Markdown en `src/posts-data.ts` (archivo generado)
 - `src/highlight.ts`: resaltado de sintaxis propio
-- `src/components.ts`: componentes reutilizables e interactivos
-- `src/views.ts`, `src/router.ts`, `src/main.ts`: vistas, rutas y estado
+- `src/components.ts`: componentes visuales reutilizables
+- `src/demos.ts`: demos interactivos incluidos en los tips
+- `src/views.ts`: vistas y navegación lateral, agrupada según `topic` en cada tip
+- `src/render.ts`, `src/interactions.ts`: renderizado de rutas y eventos de interfaz
+- `src/router.ts`, `src/main.ts`: rutas y arranque de la aplicación
 - `src/projects.ts`, `src/site.ts`: tus proyectos y datos personales
 - `css/style.css`: estilos con variables CSS, tema claro y oscuro
 
@@ -46,4 +50,4 @@ para insertar un componente interactivo (`flex-playground`, `api-tester`).
 Antes de publicar, cambia los datos de ejemplo en `src/site.ts` y `src/projects.ts`.
 
 ## Marca
-`assets/icon.svg` (icono y favicon), `assets/logo.svg` (para fondos claros) y `assets/logo-dark.svg` (para fondos oscuros). -->
+`assets/icon.svg` (icono y favicon), `assets/logo.svg` (para fondos claros) y `assets/logo-dark.svg` (para fondos oscuros).

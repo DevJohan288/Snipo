@@ -2,6 +2,8 @@
 title: Usa el código HTTP correcto
 date: 2026-09-10
 track: backend
+topic: APIs
+navTitle: Códigos HTTP
 tags: REST, HTTP
 excerpt: Seis códigos cubren casi todas las respuestas de una API.
 ---

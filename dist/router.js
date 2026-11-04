@@ -10,6 +10,7 @@ export function parseRoute(hash) {
     const [, a = "", b = ""] = (hash.replace(/^#/, "") || "/").split("/");
     switch (a) {
         case "": return { name: "home" };
+        case "inicio": return { name: "main" };
         case "tips": return b === "frontend" || b === "backend" ? { name: "tips", track: b } : { name: "tips" };
         case "tags":
         case "archive": return { name: "tips" };
@@ -25,6 +26,7 @@ export function parseRoute(hash) {
 export const sectionOf = (r) => {
     switch (r.name) {
         case "home": return "#/";
+        case "main": return "#/inicio";
         case "tips":
         case "post":
         case "tag": return "#/tips";

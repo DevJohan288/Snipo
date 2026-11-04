@@ -2,6 +2,8 @@
 title: Datos que pueden faltar: usa ?. y ??
 date: 2026-09-15
 track: frontend
+topic: JavaScript
+navTitle: Optional chaining
 tags: JavaScript
 excerpt: Evita errores con null y define valores por defecto.
 ---

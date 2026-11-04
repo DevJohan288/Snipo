@@ -2,6 +2,8 @@
 title: No subas el archivo .env a Git
 date: 2026-09-17
 track: backend
+topic: Seguridad
+navTitle: .env y Git
 tags: Node.js, Seguridad
 excerpt: Las claves en un repositorio público se roban en minutos.
 ---

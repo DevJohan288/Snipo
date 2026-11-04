@@ -6,29 +6,60 @@ import { TRACK_LABEL, levelBadge, pill, projectCard } from "./components.js";
 import { esc, longDate, readingTime } from "./utils.js";
 
 const TRACKS: Track[] = ["frontend", "backend"];
-const SECTIONS: [string, string][] = [["#/", "Inicio"], ["#/tips", "Tips"], ["#/projects", "Proyectos"], ["#/about", "Sobre mí"]];
+const SECTIONS: [string, string][] = [["#/inicio", "Inicio"], ["#/tips", "Tips"], ["#/projects", "Proyectos"], ["#/about", "Sobre mí"]];
+const TOPIC_ORDER: Record<Track, readonly string[]> = {
+  frontend: ["HTML", "Layout", "CSS", "JavaScript", "TypeScript"],
+  backend: ["SQL", "Seguridad", "APIs", "Node.js"],
+};
 
 export const filterPosts = (posts: readonly Post[], query: string): Post[] => {
   const q = query.trim().toLowerCase();
-  return q ? posts.filter((p) => `${p.title} ${p.excerpt} ${p.tags.join(" ")}`.toLowerCase().includes(q)) : [...posts];
+  return q ? posts.filter((p) =>
+    `${p.title} ${p.navTitle} ${p.topic} ${p.excerpt} ${p.tags.join(" ")}`.toLowerCase().includes(q)) : [...posts];
 };
 
 export const sidebarView = (posts: readonly Post[], query: string, route: Route): string => {
   const section = sectionOf(route);
-  const nav = `<h2 class="side-title">Secciones</h2><ul>${SECTIONS.map(
+  const nav = `<h2 class="side-title">Secciones</h2><ul class="side-nav">${SECTIONS.map(
     ([href, label]) => `<li><a href="${href}"${href === section && route.name !== "post" ? ' aria-current="page"' : ""}>${label}</a></li>`,
   ).join("")}</ul>`;
   const items = filterPosts(posts, query);
   const current = route.name === "post" ? route.slug : "";
-  const group = (t: Track): string => {
-    const list = items.filter((p) => p.track === t);
-    if (!list.length) return "";
-    return `<h2 class="side-title">${TRACK_LABEL[t]}</h2><ul>${list
-      .map((p) => `<li><a href="#/tip/${p.slug}"${p.slug === current ? ' aria-current="page"' : ""}>${esc(p.title)}</a></li>`)
-      .join("")}</ul>`;
+  const currentTrack = route.name === "tips"
+    ? route.track
+    : route.name === "post"
+      ? posts.find((p) => p.slug === current)?.track
+      : undefined;
+  const group = (track: Track): string => {
+    const trackPosts = items.filter((post) => post.track === track);
+    if (!trackPosts.length) return "";
+    const groups = new Map<string, Post[]>();
+    for (const post of trackPosts) {
+      const group = groups.get(post.topic) ?? [];
+      group.push(post);
+      groups.set(post.topic, group);
+    }
+    const topics = [...groups.keys()].sort((a, b) => {
+      const order = TOPIC_ORDER[track];
+      const aIndex = order.indexOf(a), bIndex = order.indexOf(b);
+      if (aIndex < 0 && bIndex < 0) return a.localeCompare(b, "es");
+      if (aIndex < 0) return 1;
+      if (bIndex < 0) return -1;
+      return aIndex - bIndex;
+    });
+    const categories = topics.map((topic) =>
+      `<section class="side-category"><h3>${esc(topic)}</h3><ul>${groups.get(topic)!.map((post) =>
+        `<li><a href="#/tip/${post.slug}"${post.slug === current ? ' aria-current="page"' : ""}>${esc(post.navTitle)}</a></li>`)
+        .join("")}</ul></section>`).join("");
+    return `<details class="side-group"${query || currentTrack === track ? " open" : ""}>
+      <summary>${TRACK_LABEL[track]}<span class="side-count">${trackPosts.length}</span></summary>
+      <div class="side-categories">${categories}</div>
+    </details>`;
   };
-  const rest = items.length ? TRACKS.map(group).join("") : `<p class="side-empty">Sin resultados para "${esc(query)}".</p>`;
-  return nav + rest;
+  const topics = items.length
+    ? `<h2 class="side-title side-topics-title">Explorar por tema</h2>${TRACKS.map(group).join("")}`
+    : `<p class="side-empty">Sin resultados para "${esc(query)}".</p>`;
+  return nav + topics;
 };
 
 const snippetOf = (p: Post): string => p.body.match(/<pre>[\s\S]*?<\/pre>/)?.[0] ?? "";
@@ -37,7 +68,7 @@ const linkBtn = (slug: string): string =>
   `<button class="link-btn" type="button" data-copy-link="${esc(slug)}">Copiar enlace</button>`;
 
 const entries = (list: readonly Post[], withCode = false): string => `<ul class="entries">${list
-  .map((p) => `<li><a href="#/tip/${p.slug}">${esc(p.title)}</a>${levelBadge(TRACK_LABEL[p.track])}${linkBtn(p.slug)}<p>${esc(p.excerpt)}</p>${withCode ? `<div class="prose">${snippetOf(p)}</div>` : ""}</li>`)
+  .map((p) => `<li><a href="#/tip/${p.slug}">${esc(p.title)}</a>${levelBadge(p.track)}${linkBtn(p.slug)}<p>${esc(p.excerpt)}</p>${withCode ? `<div class="prose">${snippetOf(p)}</div>` : ""}</li>`)
   .join("")}</ul>`;
 
 export const tipsView = (posts: readonly Post[], track?: Track): string => {
@@ -58,7 +89,7 @@ export const tipsView = (posts: readonly Post[], track?: Track): string => {
 export const tagView = (posts: readonly Post[], tag: string): string => {
   const list = posts.filter((p) => p.tags.includes(tag));
   return `
-  <nav class="crumbs" aria-label="Ruta"><a href="#/">Inicio</a><a href="#/tips">Tips</a></nav>
+  <nav class="crumbs" aria-label="Ruta"><a href="#/inicio">Inicio</a><a href="#/tips">Tips</a></nav>
   <h1>${esc(tag)}</h1>
   <p class="lead">${list.length} ${list.length === 1 ? "tip" : "tips"} con esta etiqueta.</p>
   ${list.length ? entries(list, true) : `<p class="empty">No hay tips con esta etiqueta. <a href="#/tips">Ver todos los tips</a></p>`}`;
@@ -154,6 +185,14 @@ export const landingView = (posts: readonly Post[], list: readonly Project[]): s
   </div>`;
 };
 
+export const presentationView = (): string => `
+  <section class="presentation" aria-labelledby="presentation-title">
+    <p class="presentation-label">Snipo · Desarrollo web</p>
+    <h1 id="presentation-title">Ideas pequeñas.<br /><span>Código que sí usas.</span></h1>
+    <p class="lead">Tips breves de frontend y backend, con ejemplos prácticos para aplicar en tus proyectos.</p>
+    <a class="btn primary presentation-cta" href="#/inicio">Entrar al sitio <span aria-hidden="true">→</span></a>
+  </section>`;
+
 const withIds = (html: string): string => {
   let i = 0;
   return html.replace(/<h2>/g, () => `<h2 id="s-${i++}">`);
@@ -162,9 +201,9 @@ const headings = (html: string): { id: string; text: string }[] =>
   [...html.matchAll(/<h2>(.*?)<\/h2>/g)].map((m, i) => ({ id: `s-${i}`, text: m[1] ?? "" }));
 
 export const postView = (p: Post, prev: Post | undefined, next: Post | undefined, related: readonly Post[]): string => `
-  <nav class="crumbs" aria-label="Ruta"><a href="#/">Inicio</a><a href="#/tips/${p.track}">${TRACK_LABEL[p.track]}</a></nav>
+  <nav class="crumbs" aria-label="Ruta"><a href="#/inicio">Inicio</a><a href="#/tips/${p.track}">${TRACK_LABEL[p.track]}</a></nav>
   <h1>${esc(p.title)}</h1>
-  <p class="meta">${levelBadge(TRACK_LABEL[p.track])}<span>Lectura de ${readingTime(p.body)} min</span>${linkBtn(p.slug)}<time datetime="${p.date}">Actualizado el ${longDate(p.date)}</time></p>
+  <p class="meta">${levelBadge(p.track)}<span>Lectura de ${readingTime(p.body)} min</span>${linkBtn(p.slug)}<time datetime="${p.date}">Actualizado el ${longDate(p.date)}</time></p>
   <div class="prose">${withIds(p.body)}</div>
   <p class="post-tags">${p.tags.map((t) => pill(t, `#/tag/${encodeURIComponent(t)}`)).join("")}</p>
   ${related.length ? `<section class="topic"><h2>Más tips</h2>${entries(related)}</section>` : ""}
@@ -182,4 +221,4 @@ export const tocView = (p: Post): string => {
 };
 
 export const notFoundView = (): string =>
-  `<h1>Página no encontrada</h1><p class="lead">Esa dirección no existe. <a href="#/">Volver al inicio</a></p>`;
+  `<h1>Página no encontrada</h1><p class="lead">Esa dirección no existe. <a href="#/inicio">Volver al inicio</a></p>`;

@@ -2,6 +2,8 @@
 title: Tipografía fluida con clamp() y sin media queries
 date: 2026-10-03
 track: frontend
+topic: CSS
+navTitle: Tipografía fluida
 tags: CSS, Diseño
 excerpt: Un tamaño que crece con la pantalla, con mínimo y máximo.
 ---

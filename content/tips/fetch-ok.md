@@ -2,6 +2,8 @@
 title: fetch no falla con un 404: revisa response.ok
 date: 2026-09-25
 track: frontend
+topic: JavaScript
+navTitle: Errores en fetch
 tags: JavaScript, APIs
 excerpt: Solo los fallos de red rechazan la promesa.
 ---

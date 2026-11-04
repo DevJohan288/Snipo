@@ -6,6 +6,8 @@ export interface Post {
   title: string;
   date: string; // AAAA-MM-DD
   track: Track;
+  topic: string;
+  navTitle: string;
   tags: string[];
   excerpt: string;
   body: string; // HTML generado desde Markdown; el primer <pre> se usa como vista previa

@@ -2,6 +2,8 @@
 title: Usa unknown en lugar de any
 date: 2026-09-20
 track: frontend
+topic: TypeScript
+navTitle: unknown vs. any
 tags: TypeScript
 excerpt: Te obliga a comprobar el tipo antes de usar el valor.
 ---
