@@ -66,4 +66,15 @@ La validación del navegador mejora la experiencia, pero el servidor también de
 />
 ```
 
+El atributo `multiple` también se usa en `<select>` para permitir elegir varias opciones. En ese caso, conviene explicar cómo hacer la selección con teclado y mantener una etiqueta asociada.
+
+```html
+<label for="topics">Temas de interés</label>
+<select id="topics" name="topics" multiple>
+  <option value="html">HTML</option>
+  <option value="css">CSS</option>
+  <option value="javascript">JavaScript</option>
+</select>
+```
+
 Usa una etiqueta asociada a cada control y proporciona instrucciones claras sobre formatos, límites y cantidad de archivos permitidos.

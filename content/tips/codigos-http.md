@@ -5,19 +5,27 @@ track: backend
 topic: APIs
 navTitle: Códigos HTTP
 tags: REST, HTTP
-excerpt: Seis códigos cubren casi todas las respuestas de una API.
+excerpt: Reconoce estados HTTP habituales para respuestas exitosas, redirecciones y errores.
 ---
 
 ```text
+200 OK            solicitud correcta
 201 Created       POST que crea un recurso
 204 No Content    DELETE correcto
+301 Moved         redirección permanente
+302 Found         redirección temporal
 400 Bad Request   datos inválidos
 401 Unauthorized  sin iniciar sesión
 403 Forbidden     sin permiso
 404 Not Found     el recurso no existe
+500 Server Error  error inesperado del servidor
+502 Bad Gateway   respuesta inválida de un servidor intermedio
+503 Unavailable   servicio temporalmente no disponible
 ```
 
-Responde siempre con JSON y un mensaje de error consistente.
+`401` indica que falta autenticación válida; `403`, que el servidor entiende la solicitud, pero no autoriza el acceso. Usa `503` para indisponibilidad temporal y, cuando sea útil, indica cuándo reintentar mediante `Retry-After`.
+
+En una API JSON, devuelve un formato de error consistente y un estado adecuado. No todas las respuestas HTTP tienen que ser JSON: por ejemplo, `204 No Content` no lleva cuerpo.
 
 ## Pruébalo tú
 
